@@ -1,0 +1,7 @@
+﻿  main.cpp
+d:\sfml_game\game_sfml\game_sfml\main.cpp(29): warning C4244: инициализация: преобразование "sf::Int64" в "float", возможна потеря данных
+d:\sfml_game\game_sfml\game_sfml\main.cpp(40): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+d:\sfml_game\game_sfml\game_sfml\main.cpp(41): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+d:\sfml_game\game_sfml\game_sfml\main.cpp(42): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+d:\sfml_game\game_sfml\game_sfml\main.cpp(43): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  game_sfml.vcxproj -> D:\sfml_game\game_sfml\x64\Debug\game_sfml.exe
