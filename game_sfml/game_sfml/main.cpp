@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "map.h"
 #include <iostream>
 using namespace sf;
 
@@ -20,7 +21,7 @@ public:
 		texture.loadFromImage(image);//закидываем наше изображение в текстуру
 		sprite.setTexture(texture);//заливаем спрайт текстурой
 		x = X; y = Y;//координата появления спрайта
-		sprite.setTextureRect(IntRect(0, 0, w, h)); //Задаем спрайту один прямоугольник для вывода одного льва, а не кучи львов сразу. IntRect - приведение типов
+		sprite.setTextureRect(IntRect(0, 0, w, h)); //Задаем спрайту один прямоугольник для вывода одного 
 	}
 	void update(float time) //функция "оживления" объекта класса. update - обновление. принимает в себя время SFML , вследствие чего работает бесконечно, давая персонажу движение.
 	{
@@ -43,6 +44,14 @@ public:
 int main()
 {
 	RenderWindow window(VideoMode(1920, 1080), "game");
+	
+	Image map_image;//объект изображения для карты
+	map_image.loadFromFile("images/map.png");//загружаем файл для карты
+	Texture map;//текстура карты
+	map.loadFromImage(map_image);//заряжаем текстуру картинкой
+	Sprite s_map;//создаём спрайт для карты
+	s_map.setTexture(map);//заливаем текстуру спрайтом
+	
 	window.setFramerateLimit(60); // количество кадров в секунду (60)
     //персонажи
 	Player p("pers.png", 4, 775, 101, 774); //создаем объект p класса player,задаем "hero.png" как имя файла+расширение, далее координата Х,У, ширина, высота.
@@ -99,7 +108,19 @@ int main()
 		
 		p.update(time);//оживляем объект p класса Player с помощью времени sfml, передавая время в качестве параметра функции update. благодаря этому персонаж может двигаться
 		
+		/////////////////////////////Рисуем карту/////////////////////
+		for (int i = 0; i < HEIGHT_MAP; i++)
+			for (int j = 0; j < WIDTH_MAP; j++)
+			{
+				if (TileMap[i][j] == ' ')  s_map.setTextureRect(IntRect(0, 0, 32, 32)); //если встретили символ пробел, то рисуем 1й квадратик
+				if (TileMap[i][j] == 's')  s_map.setTextureRect(IntRect(32, 0, 32, 32));//если встретили символ s, то рисуем 2й квадратик
+				if ((TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));//если встретили символ 0, то рисуем 3й квадратик
 
+
+				s_map.setPosition(j * 32, i * 32);//по сути раскидывает квадратики, превращая в карту
+
+				window.draw(s_map);//рисуем квадратики на экран
+			}
 		window.clear();
 		window.draw(p.sprite);//рисуем спрайт объекта p класса player
 		window.display();
